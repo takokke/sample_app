@@ -1,4 +1,5 @@
 class ListsController < ApplicationController
+  
   def new
     @list = List.new
   end
@@ -6,7 +7,7 @@ class ListsController < ApplicationController
   def create
     list = List.new(list_params)
     if list.save
-      redirect_to '/top', notice: '保存に成功しました'
+      redirect_to list_path(list.id), notice: '保存に成功しました'
     else
       flash.now[alert] = "保存に失敗しました"
       render :new
@@ -18,10 +19,13 @@ class ListsController < ApplicationController
   end
 
   def show
+    @list = List.find(params[:id])
   end
 
   def edit
+    @list = List.find(params[:id])  
   end
+  
   
   private
   
