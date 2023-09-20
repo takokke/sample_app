@@ -36,9 +36,15 @@ class ListsController < ApplicationController
     end
   end
   
+  def destroy
+    list = List.find(params[:id])
+    list.delete
+    redirect_to '/lists', notice: '投稿を削除しました'
+  end
+  
   private
   
   def list_params
-    params.require(:list).permit(:title, :body)  
+    params.require(:list).permit(:title, :body, :eye_catching)  
   end
 end
