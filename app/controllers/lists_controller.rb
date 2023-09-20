@@ -5,11 +5,12 @@ class ListsController < ApplicationController
   end
   
   def create
-    list = List.new(list_params)
-    if list.save
-      redirect_to list_path(list.id), notice: '保存に成功しました'
+    # @を付けたインスタンス変数じゃないとrender先newの@listがnillになってしまう
+    @list = List.new(list_params)
+    if @list.save
+      redirect_to list_path(@list.id), notice: '保存に成功しました'
     else
-      flash.now[alert] = "保存に失敗しました"
+      flash.now[alert] = '保存に失敗しました'
       render :new
     end
   end
@@ -45,6 +46,6 @@ class ListsController < ApplicationController
   private
   
   def list_params
-    params.require(:list).permit(:title, :body, :eye_catching)  
+    params.require(:list).permit(:title, :body, :image)  
   end
 end
