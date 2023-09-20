@@ -8,7 +8,8 @@ class ListsController < ApplicationController
     # @を付けたインスタンス変数じゃないとrender先newの@listがnillになってしまう
     @list = List.new(list_params)
     if @list.save
-      redirect_to list_path(@list.id), notice: '投稿に成功しました'
+      flash[:notice] = "投稿に成功しました。"
+      redirect_to list_path(@list.id)
     else
       flash.now[:alert] = '投稿に失敗しました'
       render :new
